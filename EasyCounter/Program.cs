@@ -21,45 +21,45 @@ namespace IngameScript
 {
     partial class Program
     {
-		class MainScript : MyMainScript
-		{
-			// Savegames
-			static readonly string SaveVersion = "1";
-			static readonly MyIniKey CounterKey = new MyIniKey(SaveVersion, "counter");
+        class MainScript : MyMainScript
+        {
+            // Savegames
+            const string SaveVersion = "1";
+            static readonly MyIniKey CounterKey = new MyIniKey(SaveVersion, "counter");
 
-			// State
-			int Counter = 0;
-			List<IMyTextPanel> Screens = new List<IMyTextPanel>();
+            // State
+            int Counter = 0;
+            List<IMyTextPanel> Screens = new List<IMyTextPanel>();
 
-			// Event handlers
-			public override void onLoad(MyIni data) {
-				Counter = data.Get(CounterKey).ToInt32();
-				Runtime.UpdateFrequency = UpdateFrequency.Update100;
-			}
+            // Event handlers
+            public override void onLoad(MyIni data) {
+                Counter = data.Get(CounterKey).ToInt32();
+                Runtime.UpdateFrequency = UpdateFrequency.Update100;
+            }
 
-			public override void ScanBlocks(IMyGridTerminalSystem grid)
-			{
-				grid.GetBlocksOfType<IMyTextPanel>(Screens, Block.OnGridOf(Me));
-			}
+            public override void ScanBlocks(IMyGridTerminalSystem grid)
+            {
+                grid.GetBlocksOfType<IMyTextPanel>(Screens, Block.OnGridOf(Me));
+            }
 
-			public override void onTick(UpdateType source)
-			{
-				Counter += 1;
-				foreach (var screen in Screens) {
-					screen.ContentType = ContentType.TEXT_AND_IMAGE;
-					screen.WriteText(Counter.ToString());
-				}
-			}
+            public override void onTick(UpdateType source)
+            {
+                Counter += 1;
+                foreach (var screen in Screens) {
+                    screen.ContentType = ContentType.TEXT_AND_IMAGE;
+                    screen.WriteText(Counter.ToString());
+                }
+            }
 
-			public override void onCommand(MyCommandLine args)
-			{
-				if (args.Argument(0) == "reset") { Counter = 0; }
-			}
+            public override void onCommand(MyCommandLine args)
+            {
+                if (args.Argument(0) == "reset") { Counter = 0; }
+            }
 
-			public override void onSave(MyIni data)
-			{
-				data.Set(CounterKey, Counter);
-			}
-		}
-	}
+            public override void onSave(MyIni data)
+            {
+                data.Set(CounterKey, Counter);
+            }
+        }
+    }
 }

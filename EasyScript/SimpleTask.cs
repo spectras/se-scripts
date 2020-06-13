@@ -20,38 +20,36 @@ using VRageRender.Messages;
 
 namespace IngameScript
 {
-	partial class Program
-	{
-		sealed class SimpleDispatcher
-		{
-			public delegate bool Task();
+    partial class Program
+    {
+        sealed class SimpleDispatcher
+        {
+            Action m_tasks1;
+            Action m_tasks10;
+            Action m_tasks100;
 
-			Task m_tasks1;
-			Task m_tasks10;
-			Task m_tasks100;
+            public UpdateFrequency UpdateFrequency {
+                get {
+                    return UpdateFrequency.None
+                        | (m_tasks1 != null ? UpdateFrequency.Update1 : 0)
+                        | (m_tasks10 != null ? UpdateFrequency.Update10 : 0)
+                        | (m_tasks100 != null ? UpdateFrequency.Update100 : 0);
+                }
+            }
 
-			public UpdateFrequency UpdateFrequency {
-				get {
-					return UpdateFrequency.None
-						| (m_tasks1 != null ? UpdateFrequency.Update1 : 0)
-						| (m_tasks10 != null ? UpdateFrequency.Update10 : 0)
-						| (m_tasks100 != null ? UpdateFrequency.Update100 : 0);
-				}
-			}
+            public void Add(Action task, UpdateFrequency frequency)
+            {
+                if ((frequency & UpdateFrequency.Update1) != 0) { m_tasks1 += task; }
+                if ((frequency & UpdateFrequency.Update10) != 0) { m_tasks10 += task; }
+                if ((frequency & UpdateFrequency.Update100) != 0) { m_tasks100 += task; }
+            }
 
-			public void Add(Task task, UpdateFrequency frequency)
-			{
-				if ((frequency & UpdateFrequency.Update1) != 0) { m_tasks1 += task; }
-				if ((frequency & UpdateFrequency.Update10) != 0) { m_tasks10 += task; }
-				if ((frequency & UpdateFrequency.Update100) != 0) { m_tasks100 += task; }
-			}
-
-			public void Run(UpdateType source)
-			{
-				if ((source & UpdateType.Update1) != 0 && m_tasks1 != null) { m_tasks1(); }
-				if ((source & UpdateType.Update10) != 0 && m_tasks10 != null) { m_tasks10(); }
-				if ((source & UpdateType.Update100) != 0 && m_tasks100 != null) { m_tasks100(); }
-			}
-		}
-	}
+            public void Run(UpdateType source)
+            {
+                if ((source & UpdateType.Update1) != 0 && m_tasks1 != null) { m_tasks1(); }
+                if ((source & UpdateType.Update10) != 0 && m_tasks10 != null) { m_tasks10(); }
+                if ((source & UpdateType.Update100) != 0 && m_tasks100 != null) { m_tasks100(); }
+            }
+        }
+    }
 }

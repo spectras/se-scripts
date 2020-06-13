@@ -19,32 +19,32 @@ using VRageMath;
 
 namespace IngameScript
 {
-	partial class Program
-	{
+    partial class Program
+    {
 #if false
-		public interface IDisplay
-	    {
-			List<MySprite> Render();
-	    }
+        public interface IDisplay
+        {
+            List<MySprite> Render();
+        }
 
-		public class DisplayManager : SubProgram {
-			public readonly Dictionary<string, IDisplay> Displays = new Dictionary<string, IDisplay>();
+        public class DisplayManager : SubProgram {
+            public readonly Dictionary<string, IDisplay> Displays = new Dictionary<string, IDisplay>();
 
-			public DisplayManager(ProgramHost host) : base(host)
+            public DisplayManager(ProgramHost host) : base(host)
             {
-				UpdateFrequency = UpdateFrequency.Update100;
+                UpdateFrequency = UpdateFrequency.Update100;
             }
 
-			public override void Main(string argument, UpdateType updateSource)
+            public override void Main(string argument, UpdateType updateSource)
             {
-				if ((updateSource & UpdateType.Update100) != 0) { Render(); }
-			}
+                if ((updateSource & UpdateType.Update100) != 0) { Render(); }
+            }
 
-			void Render()
+            void Render()
             {
 
             }
-		}
+        }
 #endif
-	}
+    }
 }

@@ -11,9 +11,9 @@ How to use
 - [Download](https://github.com/spectras/se-scripts/archive/master.zip) the project.
 - Copy-paste the `EasyScript` directory into your project.
 - Inside Visual Studio:
-	- right click on your project in the solution explorer.
-	- select "Add → Reference..." from the menu.
-	- in the Shared Projects group, tick `EasyScript`.
+    - right click on your project in the solution explorer.
+    - select "Add → Reference..." from the menu.
+    - in the Shared Projects group, tick `EasyScript`.
 
 A first script
 --------------
@@ -26,24 +26,24 @@ Let's look at this scripts that shows a counter on all screens of the ship:
 ```csharp
 class MainScript : MyMainScript
 {
-	int Counter = 0;
-	List<IMyTextPanel> Screens = new List<IMyTextPanel>();
+    int Counter = 0;
+    List<IMyTextPanel> Screens = new List<IMyTextPanel>();
 
-	public override void onLoad(MyIni data) {
-		Runtime.UpdateFrequency = UpdateFrequency.Update100;
-	}
+    public override void onLoad(MyIni data) {
+        Runtime.UpdateFrequency = UpdateFrequency.Update100;
+    }
 
-	public override void ScanBlocks(IMyGridTerminalSystem grid)	{
-		grid.GetBlocksOfType<IMyTextPanel>(Screens, Block.OnGridOf(Me))
-	}
-	
-	public override void onTick(UpdateType source) {
-		Counter += 1;
-		foreach (var screen in Screens) {
-			screen.ContentType = ContentType.TEXT_AND_IMAGE;
-			screen.WriteText(Counter.ToString());
-		}
-	}
+    public override void ScanBlocks(IMyGridTerminalSystem grid)    {
+        grid.GetBlocksOfType<IMyTextPanel>(Screens, Block.OnGridOf(Me))
+    }
+    
+    public override void onTick(UpdateType source) {
+        Counter += 1;
+        foreach (var screen in Screens) {
+            screen.ContentType = ContentType.TEXT_AND_IMAGE;
+            screen.WriteText(Counter.ToString());
+        }
+    }
 }
 ```
 
@@ -79,20 +79,20 @@ We will use it to remember current counter value when the game is saved:
 ```csharp
 public override void onSave(MyIni data)
 {
-	data.Set(CounterKey, Counter);
+    data.Set(CounterKey, Counter);
 }
 ```
 
 And modify `onLoad` to actually load the value from the saved game:
 ```csharp
 public override void onLoad(MyIni data) {
-	Counter = data.Get(CounterKey).ToInt32(0);
-	Runtime.UpdateFrequency = UpdateFrequency.Update100;
+    Counter = data.Get(CounterKey).ToInt32(0);
+    Runtime.UpdateFrequency = UpdateFrequency.Update100;
 }
 ```
 **Note:** `ToInt32` converts the value to an `int`, the type we used for our `Counter`.
     There are also `ToIn64()` for `long`, `ToString()` for `string`, … The value in the
-	parenthesis will be used as default value if no saved value was found.
+    parenthesis will be used as default value if no saved value was found.
 
 Allow resetting the counter
 ---------------------------
@@ -104,7 +104,7 @@ We simply add a function to handle the command:
 ```csharp
 public override void onCommand(MyCommandLine args)
 {
-	if (args.Argument(0) == "reset") { Counter = 0; }
+    if (args.Argument(0) == "reset") { Counter = 0; }
 }
 ```
 

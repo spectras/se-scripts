@@ -20,8 +20,8 @@ using Sandbox;
 
 namespace IngameScript
 {
-	partial class Program
-	{
+    partial class Program
+    {
         class Block
         {
             public struct Predicate

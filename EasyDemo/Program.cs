@@ -25,10 +25,12 @@ namespace IngameScript
     {
         class MainScript : MyMainScript
         {
-            static readonly string MYNAME = "easy";
+            // INI keys
+            const string MYNAME = "easy";
             static readonly MyIniKey MessageKey = new MyIniKey(MYNAME, "message");
             static readonly MyIniKey NameKey = new MyIniKey(MYNAME, "name");
 
+            // State
             string Message;
             string Name;
             List<IMyTextPanel> Screens = new List<IMyTextPanel>();
