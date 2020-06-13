@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BlockUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EasyScript.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PID.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SimpleTask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Surface.cs" />
   </ItemGroup>
