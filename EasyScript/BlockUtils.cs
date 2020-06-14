@@ -43,8 +43,10 @@ namespace IngameScript
                 var transformed = reference.Orientation.TransformDirection(direction);
                 return new Predicate(subject => subject.Orientation.Forward == transformed);
             }
-            static public Predicate OnGridOf(IMyTerminalBlock block)
+            static public Predicate OnConstructOf(IMyTerminalBlock block)
                 => new Predicate(subject => subject.IsSameConstructAs(block));
+            static public Predicate OnGridOf(IMyTerminalBlock block)
+                => new Predicate(subject => subject.CubeGrid == block.CubeGrid);
             static public readonly Predicate WithInventory
                 = new Predicate(subject => subject.InventoryCount > 0);
             static public Predicate WithSection(string name)
